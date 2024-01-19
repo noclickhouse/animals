@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Animal;
+use App\Http\Controllers\AnimalController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('animals');
+});
+
+Route::prefix('animals')->group(function() {
+    Route::get('/', [AnimalController::class, 'index']);
+    Route::get('/{id}', [AnimalController::class, 'show']);
+    Route::post('/', [AnimalController::class, 'store']);
+    Route::delete('/{id}', [AnimalController::class, 'destroy']);
 });
